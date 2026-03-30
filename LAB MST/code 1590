@@ -1,0 +1,25 @@
+class Solution:
+    def minSubarray(self, nums: List[int], p: int) -> int:
+        n = len(nums)
+        t_sum = sum(nums)
+
+        if t_sum % p == 0:
+            return 0
+
+        min_len = n + 1
+
+        for i in range(n):
+            sub_sum = 0
+            for j in range(i, n):
+                sub_sum += nums[j]
+
+                length = j - i + 1
+                diff = t_sum - sub_sum
+
+                if diff % p == 0 and length != n:
+                    min_len = min(min_len, length)
+
+        if min_len == n + 1:
+            return -1
+
+        return min_len
